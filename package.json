@@ -1,0 +1,37 @@
+{
+  "name": "devops-radar",
+  "version": "1.0.0",
+  "description": "DevOps & IT sektörü gerçek zamanlı izleme platformu",
+  "main": "scripts/fetch-feeds.js",
+  "scripts": {
+    "fetch": "node scripts/fetch-feeds.js",
+    "dev": "npx serve . -p 3000",
+    "lint": "npx eslint scripts/"
+  },
+  "keywords": [
+    "devops",
+    "kubernetes",
+    "cloud-native",
+    "monitoring",
+    "rss",
+    "github-pages",
+    "cncf",
+    "platform-engineering"
+  ],
+  "author": "baybarse",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baybarse/devops-radar.git"
+  },
+  "homepage": "https://baybarse.github.io/devops-radar",
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

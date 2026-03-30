@@ -1,0 +1,111 @@
+# ================================================================
+# DevOps Radar — Otomatik RSS Feed Güncelleme Workflow
+# Her 6 saatte bir RSS kaynaklarını çekip data/feeds.json'u günceller
+# ================================================================
+
+name: 🔄 RSS Feed Güncelle
+
+on:
+  # Otomatik zamanlama: Her 6 saatte bir
+  schedule:
+    - cron: '0 */6 * * *'   # UTC: 00:00, 06:00, 12:00, 18:00
+
+  # Manuel tetikleme (GitHub UI'dan test için)
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Debug modunda çalıştır'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['true', 'false']
+
+  # Push ile de tetikle (ilk kurulum için)
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/fetch-feeds.js'
+      - 'package.json'
+      - '.github/workflows/fetch-feeds.yml'
+
+jobs:
+  fetch-and-deploy:
+    name: 📡 Feed Çek & Deploy Et
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # Repo'ya commit atmak için
+      pages: write      # GitHub Pages deploy için
+      id-token: write
+
+    steps:
+      # ── 1. Repo'yu çek ──
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── 2. Node.js kur ──
+      - name: 🟢 Node.js Kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ── 3. Bağımlılıkları yükle ──
+      - name: 📦 Bağımlılıkları Yükle
+        run: npm ci --prefer-offline
+
+      # ── 4. Feed'leri çek ──
+      - name: 📡 RSS Feed'leri Çek
+        run: node scripts/fetch-feeds.js
+        env:
+          NODE_ENV: production
+          # GitHub Actions ortamında rate limiting için user-agent bilgisi
+          GITHUB_REPO: ${{ github.repository }}
+
+      # ── 5. Değişiklik var mı kontrol et ──
+      - name: 🔍 Değişiklik Kontrolü
+        id: check_changes
+        run: |
+          if git diff --quiet data/feeds.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Feed değişmedi, commit atlanıyor."
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Feed güncellendi!"
+            
+            # İstatistik göster
+            TOTAL=$(node -e "const d=require('./data/feeds.json'); console.log(d.totalItems)")
+            SOURCES=$(node -e "const d=require('./data/feeds.json'); console.log(d.successSources)")
+            echo "📊 Toplam: $TOTAL makale, $SOURCES kaynak"
+          fi
+
+      # ── 6. Değişiklikleri commit at ──
+      - name: 💾 Commit & Push
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name  "DevOps Radar Bot"
+          git config user.email "devops-radar-bot@users.noreply.github.com"
+          
+          git add data/feeds.json
+          
+          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+          TOTAL=$(node -e "const d=require('./data/feeds.json'); console.log(d.totalItems)")
+          
+          git commit -m "🤖 chore: RSS feed güncelle — $TOTAL makale ($TIMESTAMP)"
+          git push
+
+      # ── 7. Hata raporu (opsiyonel) ──
+      - name: 📋 Hata Raporu
+        if: always()
+        run: |
+          if [ -f data/feeds.json ]; then
+            ERRORS=$(node -e "const d=require('./data/feeds.json'); console.log(d.errors.length)")
+            if [ "$ERRORS" -gt "0" ]; then
+              echo "⚠️ $ERRORS kaynak başarısız oldu:"
+              node -e "const d=require('./data/feeds.json'); d.errors.forEach(e=>console.log('  -', e.feed, ':', e.message))"
+            else
+              echo "✅ Tüm kaynaklar başarılı!"
+            fi
+          fi
