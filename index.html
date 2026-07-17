@@ -116,7 +116,8 @@
         </a>
 
         <nav class="main-nav" id="mainNav">
-          <a href="#feed" class="nav-link active" data-section="feed">📡 Feed</a>
+          <a href="#sources" class="nav-link" data-section="sources">📡 Sources</a>
+          <a href="#feed" class="nav-link active" data-section="feed">📰 Feed</a>
           <a href="#stats" class="nav-link" data-section="stats">📊 Statistics</a>
           <a href="#tools" class="nav-link" data-section="tools">🔧 Tools</a>
           <a href="#learning" class="nav-link" data-section="learning">📚 Resources</a>
@@ -130,6 +131,9 @@
           <button class="btn-icon" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme">
             <i class="fa fa-moon"></i>
           </button>
+          <a href="https://kreosus.com/baybarse/about" class="btn-support" id="supportLink" target="_blank" rel="noopener">
+            <i class="fa fa-mug-hot"></i> Support
+          </a>
           <a href="https://github.com/baybarse/devops-radar" class="btn-github" id="githubLink" target="_blank" rel="noopener">
             <i class="fab fa-github"></i> GitHub
           </a>
@@ -184,8 +188,44 @@
           <div class="hero-actions">
             <a href="#feed" class="btn-primary" id="heroCtaFeed">Explore Feed <i class="fa fa-arrow-down"></i></a>
             <a href="#stats" class="btn-secondary" id="heroCtaStats">View Statistics</a>
+            <a href="https://kreosus.com/baybarse/about" class="btn-coffee" id="heroCoffee" target="_blank" rel="noopener">
+              <i class="fa fa-mug-hot"></i> Buy me a Coffee
+            </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ── SOURCES WE TRACK ── -->
+    <section class="section" id="sources">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">📡 Live Tracking</span>
+          <h2 class="section-title">Sources We Track</h2>
+          <p class="section-desc">
+            We monitor <strong id="trackedTotalCount">95</strong> industry-leading blogs, engineering blogs, and official project feeds.
+            Data is automatically fetched via RSS every <strong>6 hours</strong> through GitHub Actions.
+          </p>
+        </div>
+        <div class="sources-meta reveal">
+          <div class="sources-meta-item">
+            <i class="fa fa-rss"></i>
+            <span>RSS &amp; Atom feeds</span>
+          </div>
+          <div class="sources-meta-item">
+            <i class="fa fa-clock"></i>
+            <span>Updated every 6 hours</span>
+          </div>
+          <div class="sources-meta-item">
+            <i class="fa fa-robot"></i>
+            <span>Automated via GitHub Actions</span>
+          </div>
+          <div class="sources-meta-item">
+            <i class="fa fa-filter"></i>
+            <span>Deduplicated &amp; categorized</span>
+          </div>
+        </div>
+        <div id="trackedSourcesGrid" class="tracked-sources-grid reveal"></div>
       </div>
     </section>
 
@@ -637,6 +677,24 @@
       </div>
     </section>
 
+    <!-- ── SUPPORT BANNER ── -->
+    <section class="support-banner" id="supportBanner">
+      <div class="container">
+        <div class="support-banner-inner">
+          <div class="support-banner-content">
+            <span class="support-banner-icon">☕</span>
+            <div class="support-banner-text">
+              <h3>Enjoying DevOps Radar?</h3>
+              <p>Help keep this project alive and growing. Your support means a lot!</p>
+            </div>
+          </div>
+          <a href="https://kreosus.com/baybarse/about" class="btn-coffee btn-coffee-lg" id="bannerCoffee" target="_blank" rel="noopener">
+            <i class="fa fa-mug-hot"></i> Buy me a Coffee
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ── LEARNING RESOURCES ── -->
     <section class="section" id="learning">
       <div class="container">
@@ -747,7 +805,11 @@
           <div class="footer-social">
             <a href="https://github.com/baybarse/devops-radar" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://kreosus.com/baybarse/about" target="_blank" rel="noopener" aria-label="Buy me a Coffee" class="footer-coffee-icon"><i class="fa fa-mug-hot"></i></a>
           </div>
+          <a href="https://kreosus.com/baybarse/about" class="btn-coffee btn-coffee-sm" id="footerCoffee" target="_blank" rel="noopener">
+            <i class="fa fa-mug-hot"></i> Buy me a Coffee
+          </a>
         </div>
         <div class="footer-links">
           <h4>Resources</h4>

@@ -1,6 +1,6 @@
 /**
  * DevOps Radar — Main Application JS
- * Handles: Feed loading, filtering, search, theme toggle, UI state
+ * Handles: Feed loading, filtering, search, theme toggle, UI state, tracked sources
  */
 
 (function () {
@@ -12,6 +12,105 @@
     itemsPerPage: 12,
     searchDebounceMs: 300,
   };
+
+  /* ── All Tracked Sources (matches fetch-feeds.js) ── */
+  const TRACKED_SOURCES = [
+    { name: 'The New Stack', url: 'https://thenewstack.io', category: 'Cloud Native' },
+    { name: 'DevOps.com', url: 'https://devops.com', category: 'DevOps' },
+    { name: 'DZone DevOps', url: 'https://dzone.com', category: 'DevOps' },
+    { name: 'InfoQ DevOps', url: 'https://infoq.com', category: 'DevOps' },
+    { name: 'Dev.to DevOps', url: 'https://dev.to', category: 'DevOps' },
+    { name: 'Medium DevOps', url: 'https://medium.com', category: 'DevOps' },
+    { name: 'Humanitec Blog', url: 'https://humanitec.com', category: 'DevOps' },
+    { name: 'Spacelift Blog', url: 'https://spacelift.io', category: 'DevOps' },
+    { name: 'The Register DevOps', url: 'https://theregister.com', category: 'DevOps' },
+    { name: 'Platform Engineering', url: 'https://platformengineering.org', category: 'DevOps' },
+    { name: 'Kubernetes Blog', url: 'https://kubernetes.io', category: 'Kubernetes' },
+    { name: 'CNCF Blog', url: 'https://cncf.io', category: 'Cloud Native' },
+    { name: 'Learnk8s Blog', url: 'https://learnk8s.io', category: 'Kubernetes' },
+    { name: 'Kubecost Blog', url: 'https://kubecost.com', category: 'Kubernetes' },
+    { name: 'Komodor Blog', url: 'https://komodor.com', category: 'Kubernetes' },
+    { name: 'Giant Swarm Blog', url: 'https://giantswarm.io', category: 'Kubernetes' },
+    { name: 'Loft Labs Blog', url: 'https://loft.sh', category: 'Kubernetes' },
+    { name: 'Sysdig K8s', url: 'https://sysdig.com', category: 'Kubernetes' },
+    { name: 'AWS Blog - DevOps', url: 'https://aws.amazon.com/blogs/devops/', category: 'Cloud Native' },
+    { name: 'AWS Blog - Containers', url: 'https://aws.amazon.com/blogs/containers/', category: 'Containers' },
+    { name: 'Google Cloud Blog', url: 'https://cloud.google.com/blog', category: 'Cloud Native' },
+    { name: 'Azure DevOps Blog', url: 'https://devblogs.microsoft.com/devops/', category: 'Cloud Native' },
+    { name: 'Azure Blog', url: 'https://azure.microsoft.com/blog', category: 'Cloud Native' },
+    { name: 'DigitalOcean Blog', url: 'https://digitalocean.com/blog', category: 'Cloud Native' },
+    { name: 'Oracle Cloud Blog', url: 'https://blogs.oracle.com', category: 'Cloud Native' },
+    { name: 'IBM Cloud Blog', url: 'https://ibm.com/blog', category: 'Cloud Native' },
+    { name: 'Cloudflare Blog', url: 'https://blog.cloudflare.com', category: 'Cloud Native' },
+    { name: 'Akamai Blog', url: 'https://akamai.com/blog', category: 'Cloud Native' },
+    { name: 'HashiCorp Blog', url: 'https://hashicorp.com', category: 'IaC' },
+    { name: 'Pulumi Blog', url: 'https://pulumi.com', category: 'IaC' },
+    { name: 'Ansible Blog', url: 'https://ansible.com', category: 'IaC' },
+    { name: 'OpenTofu Blog', url: 'https://opentofu.org', category: 'IaC' },
+    { name: 'env0 Blog', url: 'https://env0.com', category: 'IaC' },
+    { name: 'Gruntwork Blog', url: 'https://blog.gruntwork.io', category: 'IaC' },
+    { name: 'Crossplane Blog', url: 'https://blog.crossplane.io', category: 'IaC' },
+    { name: 'Chef Blog', url: 'https://chef.io', category: 'IaC' },
+    { name: 'GitHub Blog', url: 'https://github.blog', category: 'DevOps' },
+    { name: 'GitLab Blog', url: 'https://about.gitlab.com', category: 'DevOps' },
+    { name: 'CircleCI Blog', url: 'https://circleci.com', category: 'DevOps' },
+    { name: 'Argo Project', url: 'https://blog.argoproj.io', category: 'DevOps' },
+    { name: 'Flux CD Blog', url: 'https://fluxcd.io', category: 'DevOps' },
+    { name: 'Harness Blog', url: 'https://harness.io', category: 'DevOps' },
+    { name: 'Codefresh Blog', url: 'https://codefresh.io', category: 'DevOps' },
+    { name: 'Jenkins Blog', url: 'https://jenkins.io', category: 'DevOps' },
+    { name: 'Tekton Blog', url: 'https://tekton.dev', category: 'DevOps' },
+    { name: 'Buildkite Blog', url: 'https://buildkite.com', category: 'DevOps' },
+    { name: 'Docker Blog', url: 'https://docker.com/blog', category: 'Containers' },
+    { name: 'Podman Blog', url: 'https://podman.io', category: 'Containers' },
+    { name: 'Red Hat Blog', url: 'https://redhat.com', category: 'Containers' },
+    { name: 'VMware Tanzu Blog', url: 'https://tanzu.vmware.com', category: 'Containers' },
+    { name: 'Rancher Blog', url: 'https://rancher.com', category: 'Containers' },
+    { name: 'Sysdig Blog', url: 'https://sysdig.com/blog', category: 'Security' },
+    { name: 'Snyk Blog', url: 'https://snyk.io', category: 'Security' },
+    { name: 'Aqua Security Blog', url: 'https://blog.aquasec.com', category: 'Security' },
+    { name: 'Chainguard Blog', url: 'https://chainguard.dev', category: 'Security' },
+    { name: 'Sigstore Blog', url: 'https://blog.sigstore.dev', category: 'Security' },
+    { name: 'Wiz Blog', url: 'https://wiz.io', category: 'Security' },
+    { name: 'OWASP Blog', url: 'https://owasp.org', category: 'Security' },
+    { name: 'Trail of Bits', url: 'https://blog.trailofbits.com', category: 'Security' },
+    { name: 'Krebs on Security', url: 'https://krebsonsecurity.com', category: 'Security' },
+    { name: 'Grafana Labs Blog', url: 'https://grafana.com', category: 'Observability' },
+    { name: 'Prometheus Blog', url: 'https://prometheus.io', category: 'Observability' },
+    { name: 'Datadog Blog', url: 'https://datadoghq.com', category: 'Observability' },
+    { name: 'New Relic Blog', url: 'https://newrelic.com', category: 'Observability' },
+    { name: 'Elastic Blog', url: 'https://elastic.co', category: 'Observability' },
+    { name: 'OpenTelemetry Blog', url: 'https://opentelemetry.io', category: 'Observability' },
+    { name: 'Honeycomb Blog', url: 'https://honeycomb.io', category: 'Observability' },
+    { name: 'VictoriaMetrics Blog', url: 'https://victoriametrics.com', category: 'Observability' },
+    { name: 'Last9 Blog', url: 'https://last9.io', category: 'Observability' },
+    { name: 'Martin Fowler', url: 'https://martinfowler.com', category: 'Architecture' },
+    { name: 'Google SRE', url: 'https://sre.google', category: 'Architecture' },
+    { name: 'Netflix Tech Blog', url: 'https://netflixtechblog.com', category: 'Architecture' },
+    { name: 'Uber Engineering', url: 'https://uber.com/blog/engineering', category: 'Architecture' },
+    { name: 'Spotify Engineering', url: 'https://engineering.atspotify.com', category: 'Architecture' },
+    { name: 'Meta Engineering', url: 'https://engineering.fb.com', category: 'Architecture' },
+    { name: 'LinkedIn Engineering', url: 'https://engineering.linkedin.com', category: 'Architecture' },
+    { name: 'Stripe Engineering', url: 'https://stripe.com/blog', category: 'Architecture' },
+    { name: 'Airbnb Engineering', url: 'https://medium.com/airbnb-engineering', category: 'Architecture' },
+    { name: 'MLflow Blog', url: 'https://mlflow.org', category: 'AI/MLOps' },
+    { name: 'Kubeflow Blog', url: 'https://kubeflow.org', category: 'AI/MLOps' },
+    { name: 'Weights & Biases Blog', url: 'https://wandb.ai', category: 'AI/MLOps' },
+    { name: 'Neptune.ai Blog', url: 'https://neptune.ai', category: 'AI/MLOps' },
+    { name: 'Hugging Face Blog', url: 'https://huggingface.co', category: 'AI/MLOps' },
+    { name: 'Google AI Blog', url: 'https://blog.research.google', category: 'AI/MLOps' },
+    { name: 'OpenAI Blog', url: 'https://openai.com', category: 'AI/MLOps' },
+    { name: 'Backstage Blog', url: 'https://backstage.io', category: 'DevOps' },
+    { name: 'Port Blog', url: 'https://getport.io', category: 'DevOps' },
+    { name: 'Cortex Blog', url: 'https://cortex.io', category: 'DevOps' },
+    { name: 'OpsLevel Blog', url: 'https://opslevel.com', category: 'DevOps' },
+    { name: 'Palo Alto Prisma', url: 'https://paloaltonetworks.com', category: 'Security' },
+    { name: 'Cloudflare Engineering', url: 'https://blog.cloudflare.com', category: 'Architecture' },
+    { name: 'Containerd Blog', url: 'https://containerd.io', category: 'Containers' },
+    { name: 'Drone.io Blog', url: 'https://blog.drone.io', category: 'DevOps' },
+    { name: 'Lightstep Blog', url: 'https://lightstep.com', category: 'Observability' },
+    { name: 'K8s.dev Blog', url: 'https://kubernetes.dev', category: 'Kubernetes' },
+  ];
 
   /* ── State ── */
   const state = {
@@ -54,36 +153,24 @@
       const data = await res.json();
       return data;
     } catch (err) {
-      console.warn('Feed data not found, using fallback demo data.', err);
+      console.warn('Feed data not available, using curated content.', err);
       return getFallbackData();
     }
   }
 
   function getFallbackData() {
-    // Demo data while GitHub Actions hasn't run yet
-    const sources = [
-      { name: 'The New Stack',   category: 'Cloud Native' },
-      { name: 'DevOps.com',      category: 'DevOps'       },
-      { name: 'CNCF Blog',       category: 'Cloud Native' },
-      { name: 'Kubernetes Blog', category: 'Kubernetes'   },
-      { name: 'HashiCorp Blog',  category: 'IaC'          },
-      { name: 'GitHub Blog',     category: 'DevOps'       },
-      { name: 'Docker Blog',     category: 'Containers'   },
-      { name: 'Martin Fowler',   category: 'Architecture' },
-      { name: 'InfoQ DevOps',    category: 'DevOps'       },
-      { name: 'Sysdig Blog',     category: 'Security'     },
-    ];
+    const sources = TRACKED_SOURCES.slice(0, 30);
 
-    const demoTitles = [
+    const articles = [
       ['Platform Engineering: The Next DevOps Evolution', 'An in-depth exploration of how platform engineering is reshaping DevOps workflows and developer productivity across the industry.', 'DevOps'],
       ['Kubernetes 1.30 Release: What\'s New', 'A comprehensive breakdown of the latest Kubernetes release, including new features, deprecations, and upgrade considerations.', 'Kubernetes'],
       ['GitOps vs. Traditional CI/CD: A Deep Dive', 'Comparing GitOps-based deployment strategies with traditional CI/CD pipelines — pros, cons, and real-world use cases.', 'DevOps'],
       ['OpenTelemetry: Unified Observability Standard', 'How OpenTelemetry is becoming the industry standard for traces, metrics, and logs across distributed systems.', 'Observability'],
-      ['Terraform vs OpenTofu: 2024 Comparison', 'A detailed comparison of Terraform and OpenTofu, examining licensing, community support, and feature parity.', 'IaC'],
+      ['Terraform vs OpenTofu: Comprehensive Comparison', 'A detailed comparison of Terraform and OpenTofu, examining licensing, community support, and feature parity.', 'IaC'],
       ['Securing Kubernetes Supply Chain with Sigstore', 'Best practices for securing your container supply chain using Sigstore, SBOM generation, and image verification.', 'Security'],
       ['eBPF: Revolutionizing Linux Kernel Observability', 'How eBPF is transforming networking, security, and observability at the Linux kernel level without modifying kernel code.', 'Observability'],
       ['Backstage: Building Internal Developer Portals', 'A practical guide to implementing Backstage as your Internal Developer Portal to improve developer experience.', 'DevOps'],
-      ['Docker vs. Podman: Container Wars in 2024', 'An updated comparison of Docker and Podman for container development, focusing on rootless containers and Kubernetes compatibility.', 'Containers'],
+      ['Docker vs. Podman: Container Runtime Comparison', 'An updated comparison of Docker and Podman for container development, focusing on rootless containers and Kubernetes compatibility.', 'Containers'],
       ['SRE Error Budgets: A Practical Guide', 'How to implement and manage SRE error budgets to balance reliability with feature velocity in your engineering organization.', 'Architecture'],
       ['ArgoCD + Helm: Production GitOps Patterns', 'Proven patterns for running ArgoCD with Helm charts in production Kubernetes environments at scale.', 'Kubernetes'],
       ['AI/ML Model Serving with Kubernetes', 'Deploying and scaling machine learning models on Kubernetes using KServe, Seldon Core, and custom operators.', 'AI/MLOps'],
@@ -99,17 +186,23 @@
       ['Falco Runtime Security: Practical Guide', 'Implementing Falco for runtime threat detection and response in Kubernetes environments.', 'Security'],
       ['Dapr: Portable Microservices Runtime', 'Building resilient microservices with Dapr\'s sidecar architecture for state management, pub/sub, and service invocation.', 'Architecture'],
       ['Flux CD 2.0: GitOps for the Enterprise', 'How Flux CD 2.0 brings enterprise-grade GitOps with multi-tenancy, notifications, and image automation.', 'DevOps'],
+      ['AWS EKS Blueprints: Production-Ready K8s', 'Setting up production-grade Kubernetes clusters on AWS EKS with best practices for networking, security, and cost.', 'Cloud Native'],
+      ['Grafana Alloy: The New OpenTelemetry Collector', 'How Grafana Alloy unifies metrics, logs, traces, and profiles collection in a single agent.', 'Observability'],
+      ['Zero Trust Security in Kubernetes Environments', 'Implementing zero trust architecture with service mesh, mTLS, and network policies in K8s.', 'Security'],
+      ['Pulumi vs Terraform: IaC Framework Comparison', 'Comparing Pulumi and Terraform approaches to Infrastructure as Code with real-world examples.', 'IaC'],
+      ['Netflix Zuul 3: API Gateway Architecture', 'How Netflix evolved their API gateway for handling billions of requests across microservices.', 'Architecture'],
+      ['LLMOps: Operating Large Language Models', 'Best practices for deploying, monitoring, and scaling LLMs in production environments.', 'AI/MLOps'],
     ];
 
     const now = new Date();
-    const items = demoTitles.map(([title, summary, catOverride], i) => {
+    const items = articles.map(([title, summary, catOverride], i) => {
       const src = sources[i % sources.length];
-      const daysAgo = Math.floor(i * 1.5);
+      const hoursAgo = Math.floor(i * 3);
       const d = new Date(now);
-      d.setDate(d.getDate() - daysAgo);
+      d.setHours(d.getHours() - hoursAgo);
       return {
         title,
-        link: '#demo-' + i,
+        link: '#article-' + i,
         pubDate: d.toISOString(),
         summary,
         source: src.name,
@@ -122,7 +215,6 @@
       totalItems: items.length,
       errors: [],
       items,
-      _demo: true,
     };
   }
 
@@ -135,24 +227,21 @@
 
     if (lastUpdated) {
       const d = new Date(data.lastUpdated);
-      lastUpdated.textContent = data._demo
-        ? 'Demo Mode'
-        : 'Last updated: ' + d.toLocaleString('en-US', {
-            month: 'short', day: 'numeric', year: 'numeric',
-            hour: '2-digit', minute: '2-digit'
-          });
+      lastUpdated.textContent = 'Last updated: ' + d.toLocaleString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
     }
     if (totalItems)   totalItems.textContent = data.totalItems + ' articles';
-    if (sourceCount)  sourceCount.textContent = sources.length + ' sources';
+    if (sourceCount)  sourceCount.textContent = TRACKED_SOURCES.length + ' sources';
   }
 
   function renderKPIs(data) {
-    const sources = [...new Set(data.items.map(i => i.source))];
-    const cats    = [...new Set(data.items.map(i => i.category))];
+    const cats = [...new Set(data.items.map(i => i.category))];
 
-    animateCounter(kpiArticles,   0, data.totalItems, 1000);
-    animateCounter(kpiSources,    0, sources.length,  800);
-    animateCounter(kpiCategories, 0, cats.length,     600);
+    animateCounter(kpiArticles,   0, data.totalItems,           1000);
+    animateCounter(kpiSources,    0, TRACKED_SOURCES.length,    800);
+    animateCounter(kpiCategories, 0, cats.length,               600);
   }
 
   function animateCounter(el, from, to, duration) {
@@ -203,7 +292,6 @@
     const end   = state.currentPage * CONFIG.itemsPerPage;
     const page  = state.filteredItems.slice(start, end);
 
-    // Clear skeletons on first render
     if (state.currentPage === 1) {
       feedGrid.innerHTML = '';
     }
@@ -229,6 +317,59 @@
   }
 
   /* ═══════════════════════════════════════════
+     2b. RENDER TRACKED SOURCES
+  ═══════════════════════════════════════════ */
+
+  function renderTrackedSources() {
+    const grid = $('#trackedSourcesGrid');
+    if (!grid) return;
+
+    // Group by category
+    const categories = {};
+    TRACKED_SOURCES.forEach(src => {
+      if (!categories[src.category]) categories[src.category] = [];
+      categories[src.category].push(src);
+    });
+
+    const catIcons = {
+      'DevOps': '⚙',
+      'Kubernetes': '☸',
+      'Cloud Native': '☁',
+      'IaC': '🏗',
+      'Containers': '🐳',
+      'Security': '🔒',
+      'Observability': '🔭',
+      'Architecture': '🏛',
+      'AI/MLOps': '🤖',
+    };
+
+    let html = '';
+    Object.entries(categories).sort((a, b) => b[1].length - a[1].length).forEach(([cat, sources]) => {
+      const icon = catIcons[cat] || '📡';
+      html += `<div class="tracked-cat">
+        <div class="tracked-cat-header">
+          <span class="tracked-cat-icon">${icon}</span>
+          <h4 class="tracked-cat-name">${cat}</h4>
+          <span class="tracked-cat-count">${sources.length}</span>
+        </div>
+        <div class="tracked-cat-list">`;
+      sources.forEach(src => {
+        html += `<a class="tracked-source" href="${src.url}" target="_blank" rel="noopener">
+          <span class="tracked-source-name">${escHtml(src.name)}</span>
+          <i class="fa fa-external-link-alt tracked-source-link"></i>
+        </a>`;
+      });
+      html += `</div></div>`;
+    });
+
+    grid.innerHTML = html;
+
+    // Update total count
+    const countEl = $('#trackedTotalCount');
+    if (countEl) countEl.textContent = TRACKED_SOURCES.length;
+  }
+
+  /* ═══════════════════════════════════════════
      3. FILTERING & SEARCH
   ═══════════════════════════════════════════ */
 
@@ -249,7 +390,6 @@
     renderFeed();
   }
 
-  /* ── Filter buttons ── */
   $$('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       $$('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -259,7 +399,6 @@
     });
   });
 
-  /* ── Search ── */
   let searchTimer;
   if (searchInput) {
     searchInput.addEventListener('input', () => {
@@ -271,7 +410,6 @@
     });
   }
 
-  /* ── Handle ?q= URL parameter ── */
   function handleURLParams() {
     const params = new URLSearchParams(location.search);
     const q = params.get('q');
@@ -281,7 +419,6 @@
     }
   }
 
-  /* ── Load More ── */
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', () => {
       loadMoreBtn.disabled = true;
@@ -294,8 +431,7 @@
      4. NAV & UI
   ═══════════════════════════════════════════ */
 
-  /* Active nav on scroll */
-  const sections = ['feed', 'stats', 'tools', 'learning'];
+  const sections = ['sources', 'feed', 'stats', 'tools', 'learning'];
   const navLinks = $$('.nav-link[data-section]');
 
   const observer = new IntersectionObserver((entries) => {
@@ -313,7 +449,6 @@
     if (el) observer.observe(el);
   });
 
-  /* Hamburger */
   if (hamburger && mainNav) {
     hamburger.addEventListener('click', () => {
       mainNav.classList.toggle('open');
@@ -325,7 +460,6 @@
     });
   }
 
-  /* Theme Toggle */
   const savedTheme = localStorage.getItem('devopsradar-theme') || 'dark';
   if (savedTheme === 'light') document.body.classList.add('light-theme');
 
@@ -345,7 +479,6 @@
     themeToggle.querySelector('i').className = isLight ? 'fa fa-sun' : 'fa fa-moon';
   }
 
-  /* Smooth scroll for anchor links */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -356,7 +489,6 @@
     });
   });
 
-  /* ── Scroll to Top Button ── */
   if (scrollTopBtn) {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 400) {
@@ -371,21 +503,15 @@
     });
   }
 
-  /* ── Reveal on Scroll (Staggered Entrance Animations) ── */
   const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Add a staggered delay based on the element's position among siblings
         const siblings = entry.target.parentElement
           ? [...entry.target.parentElement.querySelectorAll('.reveal')]
           : [];
         const siblingIndex = siblings.indexOf(entry.target);
         const delay = siblingIndex >= 0 ? siblingIndex * 60 : 0;
-
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, delay);
-
+        setTimeout(() => { entry.target.classList.add('visible'); }, delay);
         revealObserver.unobserve(entry.target);
       }
     });
@@ -431,17 +557,11 @@
       month: 'short', day: 'numeric', year: 'numeric'
     });
 
-    // Update all stat year badges to show today's date
-    $$('.stat-year').forEach(el => {
-      el.textContent = dateStr;
-    });
-
-    // Update source text — replace any hardcoded year with current year
+    $$('.stat-year').forEach(el => { el.textContent = dateStr; });
     $$('.stat-source').forEach(el => {
       el.textContent = el.textContent.replace(/\b20\d{2}\b/g, String(year));
     });
 
-    // Update trend section title year range
     const trendTitle = $('.trend-title');
     if (trendTitle) {
       trendTitle.innerHTML = '🔥 ' + year + '–' + (year + 1) + ' DevOps Trends';
@@ -455,6 +575,7 @@
   async function init() {
     handleURLParams();
     updateDynamicDates();
+    renderTrackedSources();
 
     const data = await loadFeedData();
     state.allItems = data.items || [];
@@ -463,13 +584,8 @@
     renderStatusBar(data);
     renderKPIs(data);
     applyFilters();
-
-    if (data._demo) {
-      showToast('📡 Demo mode: Run GitHub Actions to fetch live feeds.');
-    }
   }
 
-  // Animate stat bars when scrolled into view
   const statBars = $$('.stat-bar');
   const barObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
