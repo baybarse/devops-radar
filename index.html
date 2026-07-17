@@ -1,42 +1,88 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- SEO Meta Tags -->
-  <title>DevOps Radar — IT Sektör İzleme Platformu</title>
-  <meta name="description" content="DevOps, Kubernetes, Cloud Native, CI/CD ve SRE alanlarında güncel haberler, trendler, istatistikler ve teknikler. Türkiye'nin en kapsamlı DevOps izleme platformu." />
-  <meta name="keywords" content="DevOps, Kubernetes, Docker, CI/CD, SRE, Cloud Native, CNCF, GitOps, Platform Engineering, IaC, Terraform, Ansible" />
+  <title>DevOps Radar — Real-Time IT Industry Monitoring Platform</title>
+  <meta name="description" content="Stay ahead with real-time DevOps, Kubernetes, Cloud Native, CI/CD, and SRE news, trends, statistics, and best practices. The most comprehensive DevOps intelligence platform curated from leading industry sources." />
+  <meta name="keywords" content="DevOps, Kubernetes, Docker, CI/CD, SRE, Cloud Native, CNCF, GitOps, Platform Engineering, IaC, Terraform, Ansible, Observability, MLOps, Container Orchestration, Infrastructure as Code, DevSecOps" />
   <meta name="author" content="DevOps Radar" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
   <link rel="canonical" href="https://baybarse.github.io/devops-radar/" />
+  <meta name="theme-color" content="#070910" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="DevOps Radar" />
+  <link rel="alternate" hreflang="en" href="https://baybarse.github.io/devops-radar/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="DevOps Radar — IT Sektör İzleme Platformu" />
-  <meta property="og:description" content="DevOps alanında güncel haberler, trendler ve istatistikler." />
+  <meta property="og:site_name" content="DevOps Radar" />
+  <meta property="og:title" content="DevOps Radar — Real-Time IT Industry Monitoring Platform" />
+  <meta property="og:description" content="Real-time DevOps news, Kubernetes updates, Cloud Native trends, CI/CD best practices, and industry statistics curated from top sources worldwide." />
   <meta property="og:url" content="https://baybarse.github.io/devops-radar/" />
-  <meta property="og:image" content="assets/og-image.png" />
+  <meta property="og:image" content="https://baybarse.github.io/devops-radar/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="DevOps Radar — Real-Time IT Industry Monitoring" />
+  <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="DevOps Radar" />
-  <meta name="twitter:description" content="DevOps alanında güncel haberler, trendler ve istatistikler." />
+  <meta name="twitter:title" content="DevOps Radar — Real-Time IT Monitoring" />
+  <meta name="twitter:description" content="Real-time DevOps news, Kubernetes updates, Cloud Native trends, and industry statistics from leading sources." />
+  <meta name="twitter:image" content="https://baybarse.github.io/devops-radar/assets/og-image.png" />
+  <meta name="twitter:image:alt" content="DevOps Radar Platform" />
 
   <!-- Structured Data / JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "DevOps Radar",
-    "url": "https://baybarse.github.io/devops-radar/",
-    "description": "DevOps, Kubernetes ve Cloud Native alanlarında izleme platformu",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://baybarse.github.io/devops-radar/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "DevOps Radar",
+        "url": "https://baybarse.github.io/devops-radar/",
+        "description": "Real-time DevOps, Kubernetes, and Cloud Native industry monitoring platform",
+        "inLanguage": "en",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://baybarse.github.io/devops-radar/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "DevOps Radar",
+        "url": "https://baybarse.github.io/devops-radar/",
+        "logo": "https://baybarse.github.io/devops-radar/assets/og-image.png",
+        "sameAs": [
+          "https://github.com/baybarse/devops-radar"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://baybarse.github.io/devops-radar/#webpage",
+        "url": "https://baybarse.github.io/devops-radar/",
+        "name": "DevOps Radar — Real-Time IT Industry Monitoring Platform",
+        "description": "Stay ahead with real-time DevOps, Kubernetes, Cloud Native, CI/CD, and SRE news, trends, statistics, and best practices.",
+        "isPartOf": {
+          "@id": "https://baybarse.github.io/devops-radar/#website"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "DevOps"
+        },
+        "inLanguage": "en"
+      }
+    ]
   }
   </script>
 
@@ -58,37 +104,38 @@
   <!-- Background Grid -->
   <div class="bg-grid"></div>
   <div class="bg-glow"></div>
+  <div class="bg-glow bg-glow-2"></div>
 
   <!-- ── HEADER ── -->
   <header class="site-header">
     <div class="container">
       <div class="header-inner">
-        <a href="/" class="logo">
+        <a href="/" class="logo" id="siteLogo">
           <span class="logo-icon">⬡</span>
           <span class="logo-text">DevOps<span class="logo-accent">Radar</span></span>
         </a>
 
         <nav class="main-nav" id="mainNav">
           <a href="#feed" class="nav-link active" data-section="feed">📡 Feed</a>
-          <a href="#stats" class="nav-link" data-section="stats">📊 İstatistikler</a>
-          <a href="#tools" class="nav-link" data-section="tools">🔧 Araçlar</a>
-          <a href="#learning" class="nav-link" data-section="learning">📚 Kaynaklar</a>
+          <a href="#stats" class="nav-link" data-section="stats">📊 Statistics</a>
+          <a href="#tools" class="nav-link" data-section="tools">🔧 Tools</a>
+          <a href="#learning" class="nav-link" data-section="learning">📚 Resources</a>
         </nav>
 
         <div class="header-actions">
-          <div class="search-wrapper">
+          <div class="search-wrapper" id="searchWrapper">
             <i class="fa fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Ara..." autocomplete="off" />
+            <input type="text" id="searchInput" placeholder="Search..." autocomplete="off" aria-label="Search articles" />
           </div>
-          <button class="btn-icon" id="themeToggle" title="Tema değiştir">
+          <button class="btn-icon" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light theme">
             <i class="fa fa-moon"></i>
           </button>
-          <a href="https://github.com/baybarse/devops-radar" class="btn-github" target="_blank" rel="noopener">
+          <a href="https://github.com/baybarse/devops-radar" class="btn-github" id="githubLink" target="_blank" rel="noopener">
             <i class="fab fa-github"></i> GitHub
           </a>
         </div>
 
-        <button class="hamburger" id="hamburger" aria-label="Menü">
+        <button class="hamburger" id="hamburger" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -99,13 +146,13 @@
       <div class="container">
         <div class="status-inner">
           <span class="status-dot pulse"></span>
-          <span class="status-text">Canlı İzleme</span>
+          <span class="status-text">Live Monitoring</span>
           <span class="status-sep">|</span>
-          <span id="lastUpdated">Güncelleniyor...</span>
+          <span id="lastUpdated">Updating...</span>
           <span class="status-sep">|</span>
-          <span id="totalItems">0 makale</span>
+          <span id="totalItems">0 articles</span>
           <span class="status-sep">|</span>
-          <span id="sourceCount">0 kaynak</span>
+          <span id="sourceCount">0 sources</span>
         </div>
       </div>
     </div>
@@ -115,23 +162,28 @@
   <main>
 
     <!-- ── HERO ── -->
-    <section class="hero">
+    <section class="hero" id="heroSection">
+      <div class="hero-orbs" aria-hidden="true">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+      </div>
       <div class="container">
         <div class="hero-inner">
           <div class="hero-badge">🚀 Platform Engineering & DevOps Intelligence</div>
           <h1 class="hero-title">
-            IT Sektörünü<br/>
-            <span class="gradient-text">Gerçek Zamanlı</span><br/>
-            İzle
+            Monitor the<br/>
+            <span class="gradient-text">IT Industry</span><br/>
+            in Real Time
           </h1>
           <p class="hero-desc">
-            DevOps, Kubernetes, Cloud Native, CI/CD, SRE ve daha fazlası — 
-            dünyanın önde gelen kaynaklarından derlenen güncel haberler, 
-            trendler ve teknikler tek platformda.
+            DevOps, Kubernetes, Cloud Native, CI/CD, SRE, and more — 
+            curated news, trends, and techniques from the world's 
+            leading sources, all in one platform.
           </p>
           <div class="hero-actions">
-            <a href="#feed" class="btn-primary">Feed'i Keşfet <i class="fa fa-arrow-down"></i></a>
-            <a href="#stats" class="btn-secondary">İstatistikleri Gör</a>
+            <a href="#feed" class="btn-primary" id="heroCtaFeed">Explore Feed <i class="fa fa-arrow-down"></i></a>
+            <a href="#stats" class="btn-secondary" id="heroCtaStats">View Statistics</a>
           </div>
         </div>
       </div>
@@ -140,58 +192,58 @@
     <!-- ── STATS DASHBOARD ── -->
     <section class="section" id="stats">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">📊 Anlık Veriler</span>
-          <h2 class="section-title">DevOps Ekosistemi İstatistikleri</h2>
+        <div class="section-header reveal">
+          <span class="section-label">📊 Live Data</span>
+          <h2 class="section-title">DevOps Ecosystem Statistics</h2>
         </div>
 
         <!-- KPI Cards -->
         <div class="kpi-grid" id="kpiGrid">
-          <div class="kpi-card kpi-primary">
+          <div class="kpi-card kpi-primary reveal">
             <div class="kpi-icon">📰</div>
             <div class="kpi-body">
               <span class="kpi-value" id="kpiArticles">—</span>
-              <span class="kpi-label">Güncel Makale</span>
+              <span class="kpi-label">Latest Articles</span>
             </div>
-            <div class="kpi-trend up">↑ 24 saat</div>
+            <div class="kpi-trend up">↑ 24 hrs</div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card reveal">
             <div class="kpi-icon">🔗</div>
             <div class="kpi-body">
               <span class="kpi-value" id="kpiSources">—</span>
-              <span class="kpi-label">Aktif Kaynak</span>
+              <span class="kpi-label">Active Sources</span>
             </div>
             <div class="kpi-trend up">RSS & API</div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card reveal">
             <div class="kpi-icon">🏷️</div>
             <div class="kpi-body">
               <span class="kpi-value" id="kpiCategories">—</span>
-              <span class="kpi-label">Kategori</span>
+              <span class="kpi-label">Categories</span>
             </div>
             <div class="kpi-trend">DevOps & Cloud</div>
           </div>
-          <div class="kpi-card">
+          <div class="kpi-card reveal">
             <div class="kpi-icon">⏱️</div>
             <div class="kpi-body">
               <span class="kpi-value">6h</span>
-              <span class="kpi-label">Güncelleme Sıklığı</span>
+              <span class="kpi-label">Update Frequency</span>
             </div>
-            <div class="kpi-trend up">Otomatik</div>
+            <div class="kpi-trend up">Automatic</div>
           </div>
         </div>
 
         <!-- Static DevOps Industry Stats -->
         <div class="stats-grid">
 
-          <div class="stat-block">
+          <div class="stat-block reveal">
             <div class="stat-block-header">
-              <h3>🐳 Container Adaptasyonu</h3>
+              <h3>🐳 Container Adoption</h3>
               <span class="stat-year">2024</span>
             </div>
             <div class="stat-items">
               <div class="stat-item">
-                <span class="stat-label">Docker Kullanımı</span>
+                <span class="stat-label">Docker Usage</span>
                 <div class="stat-bar-wrap">
                   <div class="stat-bar" style="--pct:87%"></div>
                   <span class="stat-pct">87%</span>
@@ -219,12 +271,12 @@
                 </div>
               </div>
             </div>
-            <p class="stat-source">Kaynak: CNCF Annual Survey 2024</p>
+            <p class="stat-source">Source: CNCF Annual Survey 2024</p>
           </div>
 
-          <div class="stat-block">
+          <div class="stat-block reveal">
             <div class="stat-block-header">
-              <h3>☁️ Cloud Provider Kullanımı</h3>
+              <h3>☁️ Cloud Provider Usage</h3>
               <span class="stat-year">2024</span>
             </div>
             <div class="stat-items">
@@ -250,19 +302,19 @@
                 </div>
               </div>
               <div class="stat-item">
-                <span class="stat-label">Multi-Cloud Strateji</span>
+                <span class="stat-label">Multi-Cloud Strategy</span>
                 <div class="stat-bar-wrap">
                   <div class="stat-bar" style="--pct:89%"></div>
                   <span class="stat-pct">89%</span>
                 </div>
               </div>
             </div>
-            <p class="stat-source">Kaynak: Flexera State of the Cloud 2024</p>
+            <p class="stat-source">Source: Flexera State of the Cloud 2024</p>
           </div>
 
-          <div class="stat-block">
+          <div class="stat-block reveal">
             <div class="stat-block-header">
-              <h3>🔁 CI/CD Araçları</h3>
+              <h3>🔁 CI/CD Tools</h3>
               <span class="stat-year">2024</span>
             </div>
             <div class="stat-items">
@@ -295,12 +347,12 @@
                 </div>
               </div>
             </div>
-            <p class="stat-source">Kaynak: JetBrains Developer Survey 2024</p>
+            <p class="stat-source">Source: JetBrains Developer Survey 2024</p>
           </div>
 
-          <div class="stat-block">
+          <div class="stat-block reveal">
             <div class="stat-block-header">
-              <h3>📈 DevOps Olgunluk Seviyeleri</h3>
+              <h3>📈 DevOps Maturity Levels</h3>
               <span class="stat-year">2024</span>
             </div>
             <div class="stat-items">
@@ -333,14 +385,14 @@
                 </div>
               </div>
             </div>
-            <p class="stat-source">Kaynak: DORA Report 2024</p>
+            <p class="stat-source">Source: DORA Report 2024</p>
           </div>
 
         </div>
 
         <!-- Trend Tags -->
-        <div class="trend-section">
-          <h3 class="trend-title">🔥 2024-2025 DevOps Trendleri</h3>
+        <div class="trend-section reveal">
+          <h3 class="trend-title">🔥 2024–2025 DevOps Trends</h3>
           <div class="trend-tags" id="trendTags">
             <span class="trend-tag hot">Platform Engineering</span>
             <span class="trend-tag hot">AI/ML Ops</span>
@@ -366,23 +418,23 @@
     <!-- ── NEWS FEED ── -->
     <section class="section" id="feed">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">📡 Canlı Feed</span>
-          <h2 class="section-title">Güncel Haberler & Makaleler</h2>
+        <div class="section-header reveal">
+          <span class="section-label">📡 Live Feed</span>
+          <h2 class="section-title">Latest News & Articles</h2>
         </div>
 
         <!-- Category Filters -->
-        <div class="filter-bar">
-          <button class="filter-btn active" data-category="all">Tümü</button>
-          <button class="filter-btn" data-category="Kubernetes">☸ Kubernetes</button>
-          <button class="filter-btn" data-category="Cloud Native">☁ Cloud Native</button>
-          <button class="filter-btn" data-category="DevOps">⚙ DevOps</button>
-          <button class="filter-btn" data-category="Security">🔒 Security</button>
-          <button class="filter-btn" data-category="IaC">📦 IaC</button>
-          <button class="filter-btn" data-category="Containers">🐳 Containers</button>
-          <button class="filter-btn" data-category="Observability">🔭 Observability</button>
-          <button class="filter-btn" data-category="Architecture">🏗 Architecture</button>
-          <button class="filter-btn" data-category="AI/MLOps">🤖 AI/MLOps</button>
+        <div class="filter-bar reveal" id="filterBar">
+          <button class="filter-btn active" data-category="all" id="filterAll">All</button>
+          <button class="filter-btn" data-category="Kubernetes" id="filterK8s">☸ Kubernetes</button>
+          <button class="filter-btn" data-category="Cloud Native" id="filterCloud">☁ Cloud Native</button>
+          <button class="filter-btn" data-category="DevOps" id="filterDevops">⚙ DevOps</button>
+          <button class="filter-btn" data-category="Security" id="filterSecurity">🔒 Security</button>
+          <button class="filter-btn" data-category="IaC" id="filterIac">📦 IaC</button>
+          <button class="filter-btn" data-category="Containers" id="filterContainers">🐳 Containers</button>
+          <button class="filter-btn" data-category="Observability" id="filterObservability">🔭 Observability</button>
+          <button class="filter-btn" data-category="Architecture" id="filterArch">🏗 Architecture</button>
+          <button class="filter-btn" data-category="AI/MLOps" id="filterAiml">🤖 AI/MLOps</button>
         </div>
 
         <!-- Feed Grid -->
@@ -398,11 +450,11 @@
 
         <div class="feed-empty" id="feedEmpty" style="display:none">
           <span>😕</span>
-          <p>Sonuç bulunamadı. Farklı bir kategori veya arama terimi deneyin.</p>
+          <p>No results found. Try a different category or search term.</p>
         </div>
 
         <div class="load-more-wrap">
-          <button class="btn-load-more" id="loadMoreBtn">Daha Fazla Yükle</button>
+          <button class="btn-load-more" id="loadMoreBtn">Load More</button>
         </div>
       </div>
     </section>
@@ -410,27 +462,27 @@
     <!-- ── TOOLS ── -->
     <section class="section section-dark" id="tools">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">🔧 Ekosistem</span>
-          <h2 class="section-title">DevOps Araç Rehberi</h2>
+        <div class="section-header reveal">
+          <span class="section-label">🔧 Ecosystem</span>
+          <h2 class="section-title">DevOps Tool Guide</h2>
         </div>
 
         <div class="tools-grid">
 
-          <div class="tool-category">
+          <div class="tool-category reveal">
             <h3 class="tool-cat-title"><span>🔁</span> CI/CD</h3>
             <div class="tool-list">
               <a class="tool-item" href="https://github.com/features/actions" target="_blank" rel="noopener">
                 <span class="tool-name">GitHub Actions</span>
-                <span class="tool-badge popular">Popüler</span>
+                <span class="tool-badge popular">Popular</span>
               </a>
               <a class="tool-item" href="https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/" target="_blank" rel="noopener">
                 <span class="tool-name">GitLab CI/CD</span>
-                <span class="tool-badge">Açık Kaynak</span>
+                <span class="tool-badge">Open Source</span>
               </a>
               <a class="tool-item" href="https://www.jenkins.io/" target="_blank" rel="noopener">
                 <span class="tool-name">Jenkins</span>
-                <span class="tool-badge">Klasik</span>
+                <span class="tool-badge">Classic</span>
               </a>
               <a class="tool-item" href="https://tekton.dev/" target="_blank" rel="noopener">
                 <span class="tool-name">Tekton</span>
@@ -447,12 +499,12 @@
             </div>
           </div>
 
-          <div class="tool-category">
+          <div class="tool-category reveal">
             <h3 class="tool-cat-title"><span>🏗</span> Infrastructure as Code</h3>
             <div class="tool-list">
               <a class="tool-item" href="https://www.terraform.io/" target="_blank" rel="noopener">
                 <span class="tool-name">Terraform</span>
-                <span class="tool-badge popular">Popüler</span>
+                <span class="tool-badge popular">Popular</span>
               </a>
               <a class="tool-item" href="https://www.pulumi.com/" target="_blank" rel="noopener">
                 <span class="tool-name">Pulumi</span>
@@ -460,33 +512,33 @@
               </a>
               <a class="tool-item" href="https://www.ansible.com/" target="_blank" rel="noopener">
                 <span class="tool-name">Ansible</span>
-                <span class="tool-badge popular">Popüler</span>
+                <span class="tool-badge popular">Popular</span>
               </a>
               <a class="tool-item" href="https://crossplane.io/" target="_blank" rel="noopener">
                 <span class="tool-name">Crossplane</span>
-                <span class="tool-badge">Trend</span>
+                <span class="tool-badge">Trending</span>
               </a>
               <a class="tool-item" href="https://opentofu.org/" target="_blank" rel="noopener">
                 <span class="tool-name">OpenTofu</span>
-                <span class="tool-badge">Açık Kaynak</span>
+                <span class="tool-badge">Open Source</span>
               </a>
             </div>
           </div>
 
-          <div class="tool-category">
+          <div class="tool-category reveal">
             <h3 class="tool-cat-title"><span>🔭</span> Observability</h3>
             <div class="tool-list">
               <a class="tool-item" href="https://prometheus.io/" target="_blank" rel="noopener">
                 <span class="tool-name">Prometheus</span>
-                <span class="tool-badge popular">Standart</span>
+                <span class="tool-badge popular">Standard</span>
               </a>
               <a class="tool-item" href="https://grafana.com/" target="_blank" rel="noopener">
                 <span class="tool-name">Grafana</span>
-                <span class="tool-badge popular">Popüler</span>
+                <span class="tool-badge popular">Popular</span>
               </a>
               <a class="tool-item" href="https://opentelemetry.io/" target="_blank" rel="noopener">
                 <span class="tool-name">OpenTelemetry</span>
-                <span class="tool-badge">Trend</span>
+                <span class="tool-badge">Trending</span>
               </a>
               <a class="tool-item" href="https://www.jaegertracing.io/" target="_blank" rel="noopener">
                 <span class="tool-name">Jaeger</span>
@@ -503,12 +555,12 @@
             </div>
           </div>
 
-          <div class="tool-category">
+          <div class="tool-category reveal">
             <h3 class="tool-cat-title"><span>🔒</span> Security (DevSecOps)</h3>
             <div class="tool-list">
               <a class="tool-item" href="https://trivy.dev/" target="_blank" rel="noopener">
                 <span class="tool-name">Trivy</span>
-                <span class="tool-badge popular">Popüler</span>
+                <span class="tool-badge popular">Popular</span>
               </a>
               <a class="tool-item" href="https://www.openpolicyagent.org/" target="_blank" rel="noopener">
                 <span class="tool-name">OPA (Gatekeeper)</span>
@@ -529,12 +581,12 @@
             </div>
           </div>
 
-          <div class="tool-category">
-            <h3 class="tool-cat-title"><span>☸</span> Kubernetes Ekosistemi</h3>
+          <div class="tool-category reveal">
+            <h3 class="tool-cat-title"><span>☸</span> Kubernetes Ecosystem</h3>
             <div class="tool-list">
               <a class="tool-item" href="https://helm.sh/" target="_blank" rel="noopener">
                 <span class="tool-name">Helm</span>
-                <span class="tool-badge popular">Standart</span>
+                <span class="tool-badge popular">Standard</span>
               </a>
               <a class="tool-item" href="https://kustomize.io/" target="_blank" rel="noopener">
                 <span class="tool-name">Kustomize</span>
@@ -559,12 +611,12 @@
             </div>
           </div>
 
-          <div class="tool-category">
+          <div class="tool-category reveal">
             <h3 class="tool-cat-title"><span>🤖</span> AI/MLOps</h3>
             <div class="tool-list">
               <a class="tool-item" href="https://mlflow.org/" target="_blank" rel="noopener">
                 <span class="tool-name">MLflow</span>
-                <span class="tool-badge popular">Popüler</span>
+                <span class="tool-badge popular">Popular</span>
               </a>
               <a class="tool-item" href="https://kubeflow.org/" target="_blank" rel="noopener">
                 <span class="tool-name">Kubeflow</span>
@@ -588,33 +640,33 @@
     <!-- ── LEARNING RESOURCES ── -->
     <section class="section" id="learning">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">📚 Öğrenme</span>
-          <h2 class="section-title">DevOps Öğrenme Kaynakları</h2>
+        <div class="section-header reveal">
+          <span class="section-label">📚 Learning</span>
+          <h2 class="section-title">DevOps Learning Resources</h2>
         </div>
 
         <div class="resources-grid">
 
-          <div class="resource-card">
+          <div class="resource-card reveal">
             <div class="resource-icon">📘</div>
             <div class="resource-body">
-              <h4>Kitaplar</h4>
+              <h4>Books</h4>
               <ul>
                 <li><a href="https://books.google.com/books/about/The_Phoenix_Project.html" target="_blank" rel="noopener">The Phoenix Project</a></li>
                 <li><a href="https://itrevolution.com/the-devops-handbook/" target="_blank" rel="noopener">The DevOps Handbook</a></li>
-                <li><a href="https://sre.google/sre-book/table-of-contents/" target="_blank" rel="noopener">Google SRE Book (Ücretsiz)</a></li>
-                <li><a href="https://www.acceleratestateofd evops.com/" target="_blank" rel="noopener">Accelerate</a></li>
-                <li><a href="https://sre.google/workbook/table-of-contents/" target="_blank" rel="noopener">SRE Workbook (Ücretsiz)</a></li>
+                <li><a href="https://sre.google/sre-book/table-of-contents/" target="_blank" rel="noopener">Google SRE Book (Free)</a></li>
+                <li><a href="https://www.acceleratestateofdevops.com/" target="_blank" rel="noopener">Accelerate</a></li>
+                <li><a href="https://sre.google/workbook/table-of-contents/" target="_blank" rel="noopener">SRE Workbook (Free)</a></li>
               </ul>
             </div>
           </div>
 
-          <div class="resource-card">
+          <div class="resource-card reveal">
             <div class="resource-icon">🎓</div>
             <div class="resource-body">
-              <h4>Ücretsiz Kurslar</h4>
+              <h4>Free Courses</h4>
               <ul>
-                <li><a href="https://kubernetes.io/training/" target="_blank" rel="noopener">Kubernetes.io Eğitimler</a></li>
+                <li><a href="https://kubernetes.io/training/" target="_blank" rel="noopener">Kubernetes.io Training</a></li>
                 <li><a href="https://learn.cncf.io/" target="_blank" rel="noopener">CNCF Free Courses</a></li>
                 <li><a href="https://www.katacoda.com/" target="_blank" rel="noopener">Katacoda (Interactive)</a></li>
                 <li><a href="https://killercoda.com/" target="_blank" rel="noopener">Killercoda</a></li>
@@ -623,10 +675,10 @@
             </div>
           </div>
 
-          <div class="resource-card">
+          <div class="resource-card reveal">
             <div class="resource-icon">📊</div>
             <div class="resource-body">
-              <h4>Raporlar & Anketler</h4>
+              <h4>Reports & Surveys</h4>
               <ul>
                 <li><a href="https://dora.dev/research/" target="_blank" rel="noopener">DORA State of DevOps</a></li>
                 <li><a href="https://www.cncf.io/reports/" target="_blank" rel="noopener">CNCF Annual Survey</a></li>
@@ -637,10 +689,10 @@
             </div>
           </div>
 
-          <div class="resource-card">
+          <div class="resource-card reveal">
             <div class="resource-icon">🎙️</div>
             <div class="resource-body">
-              <h4>Podcast & Topluluk</h4>
+              <h4>Podcasts & Community</h4>
               <ul>
                 <li><a href="https://kubernetespodcast.com/" target="_blank" rel="noopener">Kubernetes Podcast</a></li>
                 <li><a href="https://www.devopsparadox.com/" target="_blank" rel="noopener">DevOps Paradox</a></li>
@@ -651,10 +703,10 @@
             </div>
           </div>
 
-          <div class="resource-card">
+          <div class="resource-card reveal">
             <div class="resource-icon">🗺️</div>
             <div class="resource-body">
-              <h4>Roadmap & Kariyer</h4>
+              <h4>Roadmaps & Career</h4>
               <ul>
                 <li><a href="https://roadmap.sh/devops" target="_blank" rel="noopener">DevOps Roadmap</a></li>
                 <li><a href="https://roadmap.sh/sre" target="_blank" rel="noopener">SRE Roadmap</a></li>
@@ -664,10 +716,10 @@
             </div>
           </div>
 
-          <div class="resource-card">
+          <div class="resource-card reveal">
             <div class="resource-icon">🏅</div>
             <div class="resource-body">
-              <h4>Sertifikasyonlar</h4>
+              <h4>Certifications</h4>
               <ul>
                 <li><a href="https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/" target="_blank" rel="noopener">CKA - Kubernetes Admin</a></li>
                 <li><a href="https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/" target="_blank" rel="noopener">CKAD</a></li>
@@ -691,14 +743,14 @@
         <div class="footer-brand">
           <span class="logo-icon">⬡</span>
           <span class="logo-text">DevOps<span class="logo-accent">Radar</span></span>
-          <p>IT sektörünü gerçek zamanlı izlemek için açık kaynak platform.</p>
+          <p>An open-source platform for real-time IT industry monitoring.</p>
           <div class="footer-social">
             <a href="https://github.com/baybarse/devops-radar" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
           </div>
         </div>
         <div class="footer-links">
-          <h4>Kaynaklar</h4>
+          <h4>Resources</h4>
           <ul>
             <li><a href="https://www.cncf.io/" target="_blank" rel="noopener">CNCF</a></li>
             <li><a href="https://dora.dev/" target="_blank" rel="noopener">DORA</a></li>
@@ -707,7 +759,7 @@
           </ul>
         </div>
         <div class="footer-links">
-          <h4>Topluluk</h4>
+          <h4>Community</h4>
           <ul>
             <li><a href="https://www.reddit.com/r/devops/" target="_blank" rel="noopener">r/devops</a></li>
             <li><a href="https://www.reddit.com/r/kubernetes/" target="_blank" rel="noopener">r/kubernetes</a></li>
@@ -717,19 +769,25 @@
         <div class="footer-links">
           <h4>Site</h4>
           <ul>
-            <li><a href="https://github.com/baybarse/devops-radar/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Katkıda Bulun</a></li>
-            <li><a href="https://github.com/baybarse/devops-radar/issues" target="_blank" rel="noopener">Hata Bildir</a></li>
-            <li><a href="data/feeds.json" target="_blank">Ham Veri (JSON)</a></li>
+            <li><a href="https://github.com/baybarse/devops-radar/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a></li>
+            <li><a href="https://github.com/baybarse/devops-radar/issues" target="_blank" rel="noopener">Report Bug</a></li>
+            <li><a href="data/feeds.json" target="_blank">Raw Data (JSON)</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 DevOps Radar — MIT Lisansı ile açık kaynak. Veriler RSS beslemelerinden otomatik çekilmektedir.</p>
-        <p>Bu site <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> üzerinde barındırılmaktadır.</p>
+        <p>© 2025 DevOps Radar — Open source under MIT License. Data is automatically fetched from RSS feeds.</p>
+        <p>Hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>.</p>
       </div>
     </div>
   </footer>
 
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top" title="Back to top">
+    <i class="fa fa-chevron-up"></i>
+  </button>
+
   <script src="assets/js/app.js"></script>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4132ab4e06584f039fd44138e88fb4e2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

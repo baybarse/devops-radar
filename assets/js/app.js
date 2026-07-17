@@ -34,6 +34,7 @@
   const themeToggle   = $('#themeToggle');
   const hamburger     = $('#hamburger');
   const mainNav       = $('#mainNav');
+  const scrollTopBtn  = $('#scrollTopBtn');
 
   const kpiArticles   = $('#kpiArticles');
   const kpiSources    = $('#kpiSources');
@@ -74,30 +75,30 @@
     ];
 
     const demoTitles = [
-      ['Platform Engineering: The Next DevOps Evolution', 'Platform Engineering', 'DevOps'],
-      ['Kubernetes 1.30 Release: What\'s New', 'Kubernetes Release', 'Kubernetes'],
-      ['GitOps vs. Traditional CI/CD: A Deep Dive', 'GitOps Deep Dive', 'DevOps'],
-      ['OpenTelemetry: Unified Observability Standard', 'OpenTelemetry Guide', 'Observability'],
-      ['Terraform vs OpenTofu: 2024 Comparison', 'IaC Comparison', 'IaC'],
-      ['Securing Kubernetes Supply Chain with Sigstore', 'K8s Security', 'Security'],
-      ['eBPF: Revolutionizing Linux Kernel Observability', 'eBPF Guide', 'Observability'],
-      ['Backstage: Building Internal Developer Portals', 'IDP Tutorial', 'DevOps'],
-      ['Docker vs. Podman: Container Wars in 2024', 'Container Comparison', 'Containers'],
-      ['SRE Error Budgets: A Practical Guide', 'SRE Guide', 'Architecture'],
-      ['ArgoCD + Helm: Production GitOps Patterns', 'GitOps Patterns', 'Kubernetes'],
-      ['AI/ML Model Serving with Kubernetes', 'MLOps Tutorial', 'AI/MLOps'],
-      ['Chaos Engineering: Building Resilient Systems', 'Chaos Engineering', 'DevOps'],
-      ['FinOps: Cloud Cost Optimization Strategies', 'FinOps Guide', 'Cloud Native'],
-      ['Crossplane: Infrastructure from Kubernetes', 'Crossplane Tutorial', 'IaC'],
-      ['Service Mesh Showdown: Istio vs Cilium', 'Service Mesh', 'Kubernetes'],
-      ['SBOM: Why Software Bill of Materials Matters', 'Security SBOM', 'Security'],
-      ['Karpenter: Smart Kubernetes Node Provisioning', 'Karpenter Tutorial', 'Kubernetes'],
-      ['WebAssembly on the Server: WASI and Kubernetes', 'WASM Guide', 'Cloud Native'],
-      ['Dagger: CI/CD Pipelines as Code', 'CI/CD Tutorial', 'DevOps'],
-      ['VictoriaMetrics vs Prometheus: Scalable Metrics', 'Metrics Comparison', 'Observability'],
-      ['Falco Runtime Security: Practical Guide', 'Security Falco', 'Security'],
-      ['Dapr: Portable Microservices Runtime', 'Dapr Tutorial', 'Architecture'],
-      ['Flux CD 2.0: GitOps for the Enterprise', 'Flux CD Guide', 'DevOps'],
+      ['Platform Engineering: The Next DevOps Evolution', 'An in-depth exploration of how platform engineering is reshaping DevOps workflows and developer productivity across the industry.', 'DevOps'],
+      ['Kubernetes 1.30 Release: What\'s New', 'A comprehensive breakdown of the latest Kubernetes release, including new features, deprecations, and upgrade considerations.', 'Kubernetes'],
+      ['GitOps vs. Traditional CI/CD: A Deep Dive', 'Comparing GitOps-based deployment strategies with traditional CI/CD pipelines — pros, cons, and real-world use cases.', 'DevOps'],
+      ['OpenTelemetry: Unified Observability Standard', 'How OpenTelemetry is becoming the industry standard for traces, metrics, and logs across distributed systems.', 'Observability'],
+      ['Terraform vs OpenTofu: 2024 Comparison', 'A detailed comparison of Terraform and OpenTofu, examining licensing, community support, and feature parity.', 'IaC'],
+      ['Securing Kubernetes Supply Chain with Sigstore', 'Best practices for securing your container supply chain using Sigstore, SBOM generation, and image verification.', 'Security'],
+      ['eBPF: Revolutionizing Linux Kernel Observability', 'How eBPF is transforming networking, security, and observability at the Linux kernel level without modifying kernel code.', 'Observability'],
+      ['Backstage: Building Internal Developer Portals', 'A practical guide to implementing Backstage as your Internal Developer Portal to improve developer experience.', 'DevOps'],
+      ['Docker vs. Podman: Container Wars in 2024', 'An updated comparison of Docker and Podman for container development, focusing on rootless containers and Kubernetes compatibility.', 'Containers'],
+      ['SRE Error Budgets: A Practical Guide', 'How to implement and manage SRE error budgets to balance reliability with feature velocity in your engineering organization.', 'Architecture'],
+      ['ArgoCD + Helm: Production GitOps Patterns', 'Proven patterns for running ArgoCD with Helm charts in production Kubernetes environments at scale.', 'Kubernetes'],
+      ['AI/ML Model Serving with Kubernetes', 'Deploying and scaling machine learning models on Kubernetes using KServe, Seldon Core, and custom operators.', 'AI/MLOps'],
+      ['Chaos Engineering: Building Resilient Systems', 'Implementing chaos engineering practices to proactively discover weaknesses in your distributed systems.', 'DevOps'],
+      ['FinOps: Cloud Cost Optimization Strategies', 'Practical FinOps strategies for reducing cloud spend while maintaining performance and reliability.', 'Cloud Native'],
+      ['Crossplane: Infrastructure from Kubernetes', 'Using Crossplane to manage cloud infrastructure using Kubernetes-native APIs and custom resources.', 'IaC'],
+      ['Service Mesh Showdown: Istio vs Cilium', 'Comparing Istio and Cilium for service mesh capabilities, including performance benchmarks and feature analysis.', 'Kubernetes'],
+      ['SBOM: Why Software Bill of Materials Matters', 'Understanding the importance of SBOMs for software supply chain security and regulatory compliance.', 'Security'],
+      ['Karpenter: Smart Kubernetes Node Provisioning', 'How Karpenter optimizes Kubernetes node provisioning for cost efficiency and performance.', 'Kubernetes'],
+      ['WebAssembly on the Server: WASI and Kubernetes', 'Exploring WebAssembly\'s potential for server-side computing with WASI and Kubernetes integration.', 'Cloud Native'],
+      ['Dagger: CI/CD Pipelines as Code', 'Building portable, testable CI/CD pipelines with Dagger using your favorite programming language.', 'DevOps'],
+      ['VictoriaMetrics vs Prometheus: Scalable Metrics', 'Comparing VictoriaMetrics and Prometheus for large-scale metrics collection and long-term storage.', 'Observability'],
+      ['Falco Runtime Security: Practical Guide', 'Implementing Falco for runtime threat detection and response in Kubernetes environments.', 'Security'],
+      ['Dapr: Portable Microservices Runtime', 'Building resilient microservices with Dapr\'s sidecar architecture for state management, pub/sub, and service invocation.', 'Architecture'],
+      ['Flux CD 2.0: GitOps for the Enterprise', 'How Flux CD 2.0 brings enterprise-grade GitOps with multi-tenancy, notifications, and image automation.', 'DevOps'],
     ];
 
     const now = new Date();
@@ -110,7 +111,7 @@
         title,
         link: '#demo-' + i,
         pubDate: d.toISOString(),
-        summary: summary + ': Bu makale ' + src.category + ' alanındaki en son gelişmeleri kapsamlı şekilde ele almaktadır.',
+        summary,
         source: src.name,
         category: catOverride || src.category,
       };
@@ -131,16 +132,18 @@
 
   function renderStatusBar(data) {
     const sources = [...new Set(data.items.map(i => i.source))];
-    const cats    = [...new Set(data.items.map(i => i.category))];
 
     if (lastUpdated) {
       const d = new Date(data.lastUpdated);
       lastUpdated.textContent = data._demo
-        ? 'Demo Modu'
-        : 'Son güncelleme: ' + d.toLocaleString('tr-TR');
+        ? 'Demo Mode'
+        : 'Last updated: ' + d.toLocaleString('en-US', {
+            month: 'short', day: 'numeric', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          });
     }
-    if (totalItems)   totalItems.textContent = data.totalItems + ' makale';
-    if (sourceCount)  sourceCount.textContent = sources.length + ' kaynak';
+    if (totalItems)   totalItems.textContent = data.totalItems + ' articles';
+    if (sourceCount)  sourceCount.textContent = sources.length + ' sources';
   }
 
   function renderKPIs(data) {
@@ -175,7 +178,7 @@
     }
 
     const dateStr = item.pubDate
-      ? new Date(item.pubDate).toLocaleDateString('tr-TR', {
+      ? new Date(item.pubDate).toLocaleDateString('en-US', {
           day: '2-digit', month: 'short', year: 'numeric'
         })
       : '';
@@ -216,7 +219,7 @@
 
     page.forEach((item, i) => {
       const card = createArticleCard(item);
-      card.style.animationDelay = (i * 40) + 'ms';
+      card.style.animationDelay = (i * 50) + 'ms';
       feedGrid.appendChild(card);
     });
 
@@ -353,6 +356,43 @@
     });
   });
 
+  /* ── Scroll to Top Button ── */
+  if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ── Reveal on Scroll (Staggered Entrance Animations) ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Add a staggered delay based on the element's position among siblings
+        const siblings = entry.target.parentElement
+          ? [...entry.target.parentElement.querySelectorAll('.reveal')]
+          : [];
+        const siblingIndex = siblings.indexOf(entry.target);
+        const delay = siblingIndex >= 0 ? siblingIndex * 60 : 0;
+
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  $$('.reveal').forEach(el => revealObserver.observe(el));
+
   /* ═══════════════════════════════════════════
      5. UTILITIES
   ═══════════════════════════════════════════ */
@@ -367,20 +407,54 @@
       .replace(/'/g, '&#39;');
   }
 
-  function showToast(msg, ms = 3000) {
+  function showToast(msg, ms = 4000) {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = msg;
     document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), ms);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(16px)';
+      toast.style.transition = 'all .3s ease';
+      setTimeout(() => toast.remove(), 300);
+    }, ms);
   }
 
   /* ═══════════════════════════════════════════
-     6. INIT
+     6. DYNAMIC DATES
+  ═══════════════════════════════════════════ */
+
+  function updateDynamicDates() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const dateStr = now.toLocaleDateString('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric'
+    });
+
+    // Update all stat year badges to show today's date
+    $$('.stat-year').forEach(el => {
+      el.textContent = dateStr;
+    });
+
+    // Update source text — replace any hardcoded year with current year
+    $$('.stat-source').forEach(el => {
+      el.textContent = el.textContent.replace(/\b20\d{2}\b/g, String(year));
+    });
+
+    // Update trend section title year range
+    const trendTitle = $('.trend-title');
+    if (trendTitle) {
+      trendTitle.innerHTML = '🔥 ' + year + '–' + (year + 1) + ' DevOps Trends';
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     7. INIT
   ═══════════════════════════════════════════ */
 
   async function init() {
     handleURLParams();
+    updateDynamicDates();
 
     const data = await loadFeedData();
     state.allItems = data.items || [];
@@ -391,7 +465,7 @@
     applyFilters();
 
     if (data._demo) {
-      showToast('📡 Demo modu: Gerçek feed için GitHub Actions\'ı çalıştırın.');
+      showToast('📡 Demo mode: Run GitHub Actions to fetch live feeds.');
     }
   }
 
