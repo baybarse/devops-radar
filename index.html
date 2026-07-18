@@ -196,39 +196,6 @@
       </div>
     </section>
 
-    <!-- ── SOURCES WE TRACK ── -->
-    <section class="section" id="sources">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">📡 Live Tracking</span>
-          <h2 class="section-title">Sources We Track</h2>
-          <p class="section-desc">
-            We monitor <strong id="trackedTotalCount">95</strong> industry-leading blogs, engineering blogs, and official project feeds.
-            Data is automatically fetched via RSS every <strong>6 hours</strong> through GitHub Actions.
-          </p>
-        </div>
-        <div class="sources-meta reveal">
-          <div class="sources-meta-item">
-            <i class="fa fa-rss"></i>
-            <span>RSS &amp; Atom feeds</span>
-          </div>
-          <div class="sources-meta-item">
-            <i class="fa fa-clock"></i>
-            <span>Updated every 6 hours</span>
-          </div>
-          <div class="sources-meta-item">
-            <i class="fa fa-robot"></i>
-            <span>Automated via GitHub Actions</span>
-          </div>
-          <div class="sources-meta-item">
-            <i class="fa fa-filter"></i>
-            <span>Deduplicated &amp; categorized</span>
-          </div>
-        </div>
-        <div id="trackedSourcesGrid" class="tracked-sources-grid reveal"></div>
-      </div>
-    </section>
-
     <!-- ── STATS DASHBOARD ── -->
     <section class="section" id="stats">
       <div class="container">
@@ -788,6 +755,67 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SOURCES WE TRACK ── -->
+    <section class="section" id="sources">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">📡 Live Tracking</span>
+          <h2 class="section-title">Sources We Track</h2>
+          <p class="section-desc">
+            We monitor <strong id="trackedTotalCount">95</strong> industry-leading blogs, engineering blogs, and official project feeds.
+            Data is automatically fetched via RSS every <strong>6 hours</strong> through GitHub Actions.
+          </p>
+        </div>
+        <div class="sources-meta reveal">
+          <div class="sources-meta-item">
+            <i class="fa fa-rss"></i>
+            <span>RSS &amp; Atom feeds</span>
+          </div>
+          <div class="sources-meta-item">
+            <i class="fa fa-clock"></i>
+            <span>Updated every 6 hours</span>
+          </div>
+          <div class="sources-meta-item">
+            <i class="fa fa-robot"></i>
+            <span>Automated via GitHub Actions</span>
+          </div>
+          <div class="sources-meta-item">
+            <i class="fa fa-filter"></i>
+            <span>Deduplicated &amp; categorized</span>
+          </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="sources-pagination-bar reveal">
+          <div class="sources-page-size">
+            <span>Show:</span>
+            <button class="page-size-btn active" data-size="10">10</button>
+            <button class="page-size-btn" data-size="25">25</button>
+            <button class="page-size-btn" data-size="50">50</button>
+            <button class="page-size-btn" data-size="all">All</button>
+          </div>
+          <div class="sources-page-info" id="sourcesPageInfo">Showing 1–10 of 95</div>
+          <div class="sources-page-nav">
+            <button class="page-nav-btn" id="sourcesPrevBtn" disabled><i class="fa fa-chevron-left"></i> Prev</button>
+            <span class="sources-page-numbers" id="sourcesPageNumbers"></span>
+            <button class="page-nav-btn" id="sourcesNextBtn">Next <i class="fa fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <div id="trackedSourcesList" class="tracked-sources-list"></div>
+
+        <!-- Bottom Pagination -->
+        <div class="sources-pagination-bar sources-pagination-bottom" id="sourcesPaginationBottom">
+          <div class="sources-page-info" id="sourcesPageInfoBottom"></div>
+          <div class="sources-page-nav">
+            <button class="page-nav-btn" id="sourcesPrevBtnBottom" disabled><i class="fa fa-chevron-left"></i> Prev</button>
+            <span class="sources-page-numbers" id="sourcesPageNumbersBottom"></span>
+            <button class="page-nav-btn" id="sourcesNextBtnBottom">Next <i class="fa fa-chevron-right"></i></button>
+          </div>
         </div>
       </div>
     </section>

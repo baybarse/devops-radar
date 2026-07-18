@@ -317,56 +317,132 @@
   }
 
   /* ═══════════════════════════════════════════
-     2b. RENDER TRACKED SOURCES
+     2b. RENDER TRACKED SOURCES (PAGINATED)
   ═══════════════════════════════════════════ */
 
-  function renderTrackedSources() {
-    const grid = $('#trackedSourcesGrid');
-    if (!grid) return;
+  const sourcesPagination = {
+    currentPage: 1,
+    pageSize: 10,
+    allSources: [],
+  };
 
-    // Group by category
-    const categories = {};
-    TRACKED_SOURCES.forEach(src => {
-      if (!categories[src.category]) categories[src.category] = [];
-      categories[src.category].push(src);
-    });
+  const catIcons = {
+    'DevOps': '⚙️', 'Kubernetes': '☸️', 'Cloud Native': '☁️',
+    'IaC': '🏗️', 'Containers': '🐳', 'Security': '🔒',
+    'Observability': '🔭', 'Architecture': '🏛️', 'AI/MLOps': '🤖',
+  };
 
-    const catIcons = {
-      'DevOps': '⚙',
-      'Kubernetes': '☸',
-      'Cloud Native': '☁',
-      'IaC': '🏗',
-      'Containers': '🐳',
-      'Security': '🔒',
-      'Observability': '🔭',
-      'Architecture': '🏛',
-      'AI/MLOps': '🤖',
-    };
-
-    let html = '';
-    Object.entries(categories).sort((a, b) => b[1].length - a[1].length).forEach(([cat, sources]) => {
-      const icon = catIcons[cat] || '📡';
-      html += `<div class="tracked-cat">
-        <div class="tracked-cat-header">
-          <span class="tracked-cat-icon">${icon}</span>
-          <h4 class="tracked-cat-name">${cat}</h4>
-          <span class="tracked-cat-count">${sources.length}</span>
-        </div>
-        <div class="tracked-cat-list">`;
-      sources.forEach(src => {
-        html += `<a class="tracked-source" href="${src.url}" target="_blank" rel="noopener">
-          <span class="tracked-source-name">${escHtml(src.name)}</span>
-          <i class="fa fa-external-link-alt tracked-source-link"></i>
-        </a>`;
-      });
-      html += `</div></div>`;
-    });
-
-    grid.innerHTML = html;
+  function initTrackedSources() {
+    // Flatten all sources into a sorted list
+    sourcesPagination.allSources = TRACKED_SOURCES
+      .map((src, i) => ({ ...src, idx: i + 1 }))
+      .sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
 
     // Update total count
     const countEl = $('#trackedTotalCount');
-    if (countEl) countEl.textContent = TRACKED_SOURCES.length;
+    if (countEl) countEl.textContent = sourcesPagination.allSources.length;
+
+    // Page size buttons
+    $$('.page-size-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('.page-size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const size = btn.dataset.size;
+        sourcesPagination.pageSize = size === 'all' ? sourcesPagination.allSources.length : parseInt(size);
+        sourcesPagination.currentPage = 1;
+        renderSourcesPage();
+      });
+    });
+
+    // Nav buttons (top + bottom)
+    ['', 'Bottom'].forEach(suffix => {
+      const prevBtn = $('#sourcesPrevBtn' + suffix);
+      const nextBtn = $('#sourcesNextBtn' + suffix);
+      if (prevBtn) prevBtn.addEventListener('click', () => {
+        if (sourcesPagination.currentPage > 1) {
+          sourcesPagination.currentPage--;
+          renderSourcesPage();
+          document.getElementById('sources').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+      if (nextBtn) nextBtn.addEventListener('click', () => {
+        const totalPages = Math.ceil(sourcesPagination.allSources.length / sourcesPagination.pageSize);
+        if (sourcesPagination.currentPage < totalPages) {
+          sourcesPagination.currentPage++;
+          renderSourcesPage();
+          document.getElementById('sources').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    renderSourcesPage();
+  }
+
+  function renderSourcesPage() {
+    const list = $('#trackedSourcesList');
+    if (!list) return;
+
+    const { allSources, currentPage, pageSize } = sourcesPagination;
+    const totalPages = Math.ceil(allSources.length / pageSize);
+    const start = (currentPage - 1) * pageSize;
+    const end = Math.min(start + pageSize, allSources.length);
+    const pageItems = allSources.slice(start, end);
+
+    // Render table
+    let html = `<div class="sources-table">
+      <div class="sources-table-header">
+        <span class="st-col st-num">#</span>
+        <span class="st-col st-name">Source</span>
+        <span class="st-col st-category">Category</span>
+        <span class="st-col st-link">Link</span>
+      </div>`;
+
+    pageItems.forEach((src, i) => {
+      const icon = catIcons[src.category] || '📡';
+      const globalIdx = start + i + 1;
+      html += `<a class="sources-table-row fade-in" href="${src.url}" target="_blank" rel="noopener" style="animation-delay:${i * 30}ms">
+        <span class="st-col st-num">${globalIdx}</span>
+        <span class="st-col st-name">${escHtml(src.name)}</span>
+        <span class="st-col st-category"><span class="st-cat-badge">${icon} ${escHtml(src.category)}</span></span>
+        <span class="st-col st-link"><i class="fa fa-external-link-alt"></i></span>
+      </a>`;
+    });
+
+    html += '</div>';
+    list.innerHTML = html;
+
+    // Update info text & nav buttons (top + bottom)
+    const infoText = `Showing ${start + 1}–${end} of ${allSources.length}`;
+    ['', 'Bottom'].forEach(suffix => {
+      const info = $('#sourcesPageInfo' + suffix);
+      if (info) info.textContent = infoText;
+
+      const prevBtn = $('#sourcesPrevBtn' + suffix);
+      const nextBtn = $('#sourcesNextBtn' + suffix);
+      if (prevBtn) prevBtn.disabled = currentPage <= 1;
+      if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+
+      // Page numbers
+      const numbersEl = $('#sourcesPageNumbers' + suffix);
+      if (numbersEl) {
+        numbersEl.innerHTML = '';
+        for (let p = 1; p <= totalPages; p++) {
+          const btn = document.createElement('button');
+          btn.className = 'page-number-btn' + (p === currentPage ? ' active' : '');
+          btn.textContent = p;
+          btn.addEventListener('click', () => {
+            sourcesPagination.currentPage = p;
+            renderSourcesPage();
+            document.getElementById('sources').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          numbersEl.appendChild(btn);
+        }
+      }
+    });
+
+    // Show/hide bottom pagination
+    const bottomBar = $('#sourcesPaginationBottom');
+    if (bottomBar) bottomBar.style.display = totalPages > 1 ? 'flex' : 'none';
   }
 
   /* ═══════════════════════════════════════════
@@ -575,7 +651,7 @@
   async function init() {
     handleURLParams();
     updateDynamicDates();
-    renderTrackedSources();
+    initTrackedSources();
 
     const data = await loadFeedData();
     state.allItems = data.items || [];
