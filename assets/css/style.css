@@ -359,6 +359,148 @@ body.light-theme .site-header {
   .sources-meta-item { padding: 8px 14px; font-size: .8rem; }
 }
 
+/* ── Sources Pagination Bar ── */
+.sources-pagination-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 20px;
+  margin-bottom: 20px;
+}
+.sources-pagination-bottom {
+  margin-top: 20px; margin-bottom: 0;
+}
+.sources-page-size {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .85rem; color: var(--text-3);
+}
+.page-size-btn {
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  color: var(--text-3); font-family: var(--font-mono);
+  font-size: .78rem; padding: 5px 12px;
+  border-radius: 6px; cursor: pointer;
+  transition: all .2s ease;
+}
+.page-size-btn:hover {
+  border-color: var(--accent); color: var(--accent);
+}
+.page-size-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent);
+}
+.sources-page-info {
+  font-family: var(--font-mono); font-size: .8rem;
+  color: var(--text-3);
+}
+.sources-page-nav {
+  display: flex; align-items: center; gap: 6px;
+}
+.page-nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  color: var(--text-2); font-size: .8rem;
+  padding: 6px 14px; border-radius: 6px;
+  cursor: pointer; transition: all .2s ease;
+  font-family: var(--font-body);
+}
+.page-nav-btn:hover:not(:disabled) {
+  border-color: var(--accent); color: var(--accent);
+}
+.page-nav-btn:disabled {
+  opacity: .35; cursor: not-allowed;
+}
+.page-nav-btn i { font-size: .7rem; }
+.sources-page-numbers {
+  display: flex; gap: 4px;
+}
+.page-number-btn {
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  color: var(--text-3); font-family: var(--font-mono);
+  font-size: .75rem; width: 32px; height: 32px;
+  border-radius: 6px; cursor: pointer;
+  transition: all .2s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.page-number-btn:hover {
+  border-color: var(--accent); color: var(--accent);
+}
+.page-number-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent);
+}
+
+/* ── Sources Table ── */
+.tracked-sources-list { min-height: 200px; }
+.sources-table {
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.sources-table-header {
+  display: grid;
+  grid-template-columns: 50px 1fr 180px 60px;
+  padding: 14px 22px; gap: 12px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: .72rem;
+  color: var(--text-4); text-transform: uppercase;
+  letter-spacing: .08em; font-weight: 700;
+}
+.sources-table-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 180px 60px;
+  padding: 14px 22px; gap: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-2); text-decoration: none;
+  font-size: .88rem; transition: all .2s ease;
+  align-items: center;
+}
+.sources-table-row:last-child { border-bottom: none; }
+.sources-table-row:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-1);
+}
+.st-col { display: flex; align-items: center; }
+.st-num {
+  font-family: var(--font-mono); font-size: .78rem;
+  color: var(--text-4);
+}
+.sources-table-row:hover .st-num { color: var(--accent); }
+.st-name { font-weight: 500; }
+.st-cat-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  padding: 4px 12px; border-radius: 99px;
+  font-size: .76rem; color: var(--text-3);
+  white-space: nowrap;
+}
+.sources-table-row:hover .st-cat-badge {
+  border-color: var(--accent); color: var(--accent);
+}
+.st-link {
+  font-size: .7rem; color: var(--text-4);
+  justify-content: center;
+  opacity: 0; transition: opacity .2s;
+}
+.sources-table-row:hover .st-link { opacity: 1; }
+
+@media (max-width: 768px) {
+  .sources-pagination-bar {
+    flex-direction: column; align-items: stretch;
+    gap: 12px;
+  }
+  .sources-page-size, .sources-page-nav {
+    justify-content: center;
+  }
+  .sources-page-info { text-align: center; }
+  .sources-table-header,
+  .sources-table-row {
+    grid-template-columns: 40px 1fr 60px;
+  }
+  .st-category { display: none; }
+  .st-link { opacity: 1; }
+  .sources-page-numbers { flex-wrap: wrap; justify-content: center; }
+}
+
 /* ── KPI Cards ── */
 .kpi-grid {
   display: grid;
